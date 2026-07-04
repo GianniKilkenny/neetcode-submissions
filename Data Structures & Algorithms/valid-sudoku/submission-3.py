@@ -1,0 +1,17 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rs = defaultdict(set)
+        cs = defaultdict(set)
+        ms = defaultdict(set)
+
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] != ".":
+                    if (board[r][c] in rs[r] or
+                        board[r][c] in cs[c] or
+                        board[r][c] in ms[(r // 3, c // 3)]):
+                        return False
+                    rs[r].add(board[r][c])
+                    cs[c].add(board[r][c])
+                    ms[(r // 3, c // 3)].add(board[r][c])
+        return True
